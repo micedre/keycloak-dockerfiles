@@ -1,0 +1,10 @@
+embed-server --server-config=standalone-ha.xml --std-out=echo
+batch
+/subsystem=datasources/data-source=KeycloakDS:write-attribute(name=statistics-enabled, value=${env.WILDFLY_DATASOURCES_STATISTICS_ENABLED:${env.WILDFLY_STATISTICS_ENABLED:false}})
+/subsystem=datasources/data-source=ExempleDS:write-attribute(name=statistics-enabled, value=${env.WILDFLY_DATASOURCES_STATISTICS_ENABLED:${env.WILDFLY_STATISTICS_ENABLED:false}})
+/subsystem=ejb3:write-attribute(name=enable-statistics,value=${env.WILDFLY_EJB3_STATISTICS_ENABLED:${env.WILDFLY_STATISTICS_ENABLED:false}})
+/subsystem=transactions:write-attribute(name=enable-statistics, value=${env.WILDFLY_TRANSACTIONS_STATISTICS_ENABLED:${env.WILDFLY_STATISTICS_ENABLED:false}})
+/subsystem=undertow:write-attribute(name=statistics-enabled,value=${env.WILDFLY_UNDERTOW_STATISTICS_ENABLED:${env.WILDFLY_STATISTICS_ENABLED:false}})
+/subsystem=jgroups/channel=ee:write-attribute(name=statistics-enabled, value=${env.WILDFLY_JGROUPS_STATISTICS_ENABLED:${env.WILDFLY_STATISTICS_ENABLED:false}})
+run-batch
+stop-embedded-server
