@@ -315,7 +315,19 @@ containing a `crt` file and point `X509_CA_BUNDLE` environmental variable to tha
 
 NOTE: See `openshift-examples` directory for an out of the box setup for OpenShift.
 
+### Enable some metrics
 
+Keycloak image can collect some statistics for various subsystem which will then be available in the management console and the `/metrics` endpoint.
+You can enable it with the following environment variables :
+* `WILDFLY_DATASOURCES_STATISTICS_ENABLED` for the `datasources` subsystem
+* `WILDFLY_EJB3_STATISTICS_ENABLED` for the `ejb3` subsystem
+* `WILDFLY_TRANSACTIONS_STATISTICS_ENABLED` for the `transactions` subsystem
+* `WILDFLY_UNDERTOW_STATISTICS_ENABLED` for the `undertow` subsystem
+* `WILDFLY_JGROUPS_STATISTICS_ENABLED` for the `jgroups` subsystem
+
+You can also enable all of those with `WILDFLY_STATISTICS_ENABLED`.
+
+Once enabled, you should see the metrics values changing on the `/metrics` endpoint for the management endpoint.
 
 ## Other details
 
